@@ -1,0 +1,123 @@
+<html>
+    <head>
+        <title>LyricsGrid</title>
+        <!--<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery.ui.all.css" />-->
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/blitzer/jquery-ui.css">
+            
+        
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans">
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+        
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    
+        <script type="text/javascript">
+            
+            function get_grid(song_name){
+                $.getJSON( "json/"+song_name+".json", function( data ) {
+                    var items = [];
+                    $.each( data, function( key, val ) {
+                      audio_url = "snippets/"+song_name+"/"+val['begin_time']+"_"+val['end_time']+".mp3"
+                      items.push({'audio_url': audio_url, 'line': val['text'], 'image': val['image']});
+                      
+                    });
+                    cols = parseInt(Math.ceil(Math.sqrt(items.length)));
+                    col_width = parseInt(Math.floor($('#grid').width()*0.8/cols));
+                    console.log(col_width);
+                    var arrayLength = items.length;
+                    html = ""
+                    for (var i = 0; i < arrayLength; i++) {
+                        html += '<div class="cell" line="'+items[i]['line']+'" audio_url='+items[i]['audio_url']+'>';
+                        html += '<img src="'+items[i]['image']+'" width="'+col_width+'" height="'+col_width+'">';
+                        html += '</div>';
+                        if ((i+1) % cols == 0){
+                            html += "<br/>";
+                        }
+                        html += "\n";
+                    }
+                    console.log(html);
+                    $('#grid').html(html);
+                });
+            }
+            
+            $(document).ready(function(){
+                //search(10, "genre:99");
+                $( "select" )
+                    .change(function () {
+                    var str = "";
+                    $( "select option:selected" ).each(function() {
+                        str += $( this ).attr('value');
+                    });
+                    get_grid(str);
+                });
+                
+                get_grid($("#song_select option:selected").val());
+                
+                $(document).on('mouseenter', '.cell', function() {
+                    console.log($(this).attr('line'));
+                    $('#lyrics_line').html($(this).attr('line').replace("[SPK]", '<span class="keyword">').replace("[/SPK]", '</span>'));
+                    $(this).append('<div class="play" audio_url="'+$(this).attr('audio_url')+'"></div>');
+                });
+                $(document).on('mouseleave', '.cell',function() {
+                    $('#lyrics_line').html('');
+                    $(this).children('.play').remove();
+                });
+                $(document).on('click', '.cell',function() {
+                    $('#lyrics_line').html($(this).attr('line').replace("[SPK]", '<span class="keyword">').replace("[/SPK]", '</span>'));
+                    
+                });
+                
+                $(document).on('click', '.cell .play', function() {
+                    console.log($(this).attr('audio_url'));
+                    
+                    $('audio').remove();
+                    
+                    $(this).parent().append('<audio>'+
+                                   '<source src="'+$(this).attr('audio_url')+'"></source>'+
+                                    'Your browser isn\'t invited for super fun audio time.'+
+                                    '</audio>');
+                    var audio = document.getElementsByTagName("audio")[0];
+                    audio.play();       
+                });
+                
+            });
+        </script>
+    </head>
+     
+    <body>
+        <div id="metaheader">
+            <div id="powered">
+                <a href="http://www.flickr.com/">
+                        <img class="logolink" src="img/flickr.png" alt="Flickr" height="42">
+                </a>
+                <a href="http://www.musixmatch.com/">
+                        <img class="logolink" src="img/musixmatch.png" alt="MusixMatch" height="42">
+                </a>
+                <br/>
+                <span class="poweredby">powered by</span>
+            </div>
+            
+            <div id="header">
+                <h1><a id="header_title" href="/">LyricsGrid</a> for
+                    <select id="song_select">
+                        <option value="amy_mcdonald-this_is_the_life">"This is the Life" by Amy Macdonald</option>
+                        <option value="avicii-wake_me_up" selected>"Wake me up" by Avicii</option>
+                        <option value="david_guetta-love_dont_let_me_go">"Don't let me go" by David Guetta</option>
+                        <option value="inna-sun_is_up">"Sun is up" by Inna</option>
+                        <option value="jenny_bergren-gotta_go">"Gotta go" by Jenny Berggren</option>
+                    </select>
+                </h1>
+            </div>
+        </div>
+        
+        <div id="content">
+            <div id="lyrics_line">
+                
+            </div>
+            <div id="grid">
+                
+            </div>
+        </div>
+        
+    </body>
+</html>

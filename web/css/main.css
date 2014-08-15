@@ -1,0 +1,164 @@
+body {
+    font-family: 'Droid Sans', serif;
+}
+
+ul{
+    list-style-type: none;
+}
+
+
+#powered{
+    float: right;
+    vertical-align: top;
+    clear: both;
+    text-align: center;
+}
+
+#powered a{
+    padding: 5px;
+    text-decoration: none;
+}
+
+#poweredby{
+    padding-top: 10px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.logolink{
+    vertical-align: middle;
+}
+
+#user_options{
+    float: right;
+}
+
+#metaheader{
+    vertical-align: top;
+}
+
+#years_back{
+    color: #1e90ff;
+}
+
+#header {
+    text-align: center;
+    vertical-align: top;
+    width: 80%;
+    margin-top: -30px;
+    margin-left: 12em;
+}
+
+#header h1 {
+    text-align: center;
+    font-family: 'Tangerine', serif;
+    font-size: 60px;
+    text-shadow: 1px 1px 1px #aaa;
+}
+
+#header h1 a{
+    text-decoration:none;
+    color: inherit;
+}
+
+#song_select{
+    height: 35px;
+    -webkit-appearance: none;
+    vertical-align: top;
+    margin-top: 1em;
+    font-size: 20px;
+    padding: 5px;
+    color: #1e90ff;
+}
+
+#content {
+    clear: both;
+    text-align: center;
+}
+
+#lyrics_line{
+    height: 40px;
+    font-size: xx-large;
+}
+
+.keyword{
+    color: red;
+}
+
+#grid{
+    width: 100%;
+    height: 90%;
+    display: inline-block;
+}
+
+#grid .cell{
+    border: 1px solid black;
+    display: inline-block;
+}
+
+#grid .cell img{
+    z-index: 9;
+}
+
+#grid .cell .play {
+    background: url('../img/playbutton2.png') center center no-repeat;
+    background-size:48px 48px;
+    margin: -120px 0 0 60;
+    width: 48px;
+    height: 48px;
+    position: relative;
+    z-index: 15;
+}
+
+#filters {
+    /*float: left;*/
+    text-align: center;
+}
+
+#playlist {
+    margin-top: 2em;
+    /*float: right;*/
+}
+
+#query{
+    /*width: 100%;*/
+    margin-left: -5%;
+    text-align: center;
+}
+
+#query #suggest{
+    width: 200px;
+}
+
+
+
+
+.info, .success, .warning, .error, .validation {
+    width: 388px;
+    border: 1px solid;
+    margin: 10px 0px 0px 48px;
+    padding:5px 5px 5px 5px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+}
+.info {
+    color: #00529B;
+    background-color: #BDE5F8;
+    background-image: url('info.png');
+}
+.success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    background-image:url('success.png');
+}
+.warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+    background-image: url('warning.png');
+}
+.error {
+    color: #D8000C;
+    background-color: #FFBABA;
+    background-image: url('error.png');
+}
+
