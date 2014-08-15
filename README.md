@@ -1,4 +1,4 @@
-Scapelist
+LyricsGrid
 ======
 
 Source code of [LyricsGrid](http://searchsounds.upf.edu/lyrics_grid/), a hack developed at the [Paris Music Hack Day 2014](http://new.musichackday.org/2014/paris/)
