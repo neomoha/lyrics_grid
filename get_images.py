@@ -4,10 +4,11 @@ from time import sleep
 import config
 from FlickrAPI import FlickrAPI
 
-def get_images(api, lyrics_path):
+def get_images(lyrics_path):
     '''
     Get an image for each line of the lyrics
     '''
+    api = FlickrAPI()
     lines = json.load(codecs.open(lyrics_path, "r", "utf-8"))
     keywords_images = {}
     for i in xrange(len(lines)):
@@ -22,6 +23,7 @@ def get_images(api, lyrics_path):
             image = keywords_images[keyword]
         else:
             try:
+                sleep(1.0) #be nice
                 image = api.get_images_by_tag(keyword)
             except:
                 image = "img/unknown.jpg"
@@ -45,6 +47,6 @@ if __name__ == '__main__':
     if args.api != "flickr":
         print "Currently only access to Flickr API is implemented"
         sys.exit(-1)
-    api = FlickrAPI()
-    lines = get_images(api, args.lyrics_path)
+    
+    lines = get_images(args.lyrics_path)
     json.dump(lines, codecs.open(args.lyrics_path, "w", "utf-8"))

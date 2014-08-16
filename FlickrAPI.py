@@ -1,5 +1,4 @@
 import flickrapi
-from time import sleep
 
 import config
 from ImageWebService import ImageWebService
@@ -9,7 +8,6 @@ class FlickrAPI(ImageWebService):
         self.api = flickrapi.FlickrAPI(config.FLICKR_KEY)
     
     def get_images_by_tag(self, tag_name):
-        sleep(1.0)
         for photo in self.api.walk(tags=tag_name):
             print photo
             break
